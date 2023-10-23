@@ -37,12 +37,13 @@
     <link rel="stylesheet" href="assets/css/plugins/slick.css">
 
     <!-- Main Style CSS -->
-    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+     <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <!-- <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css"> -->
-    <link rel="stylesheet" href="assets/css/style.min.css">
+<!--    <link rel="stylesheet" href="assets/css/style.min.css">-->
+
 
 </head>
 
@@ -57,10 +58,7 @@
                 </div>
                 <div class="col-auto d-none d-md-block">
                     <div class="topbar-menu">
-                        <ul>
-                            <li><a href="#" class="text-white"><i class="fa fa-map-marker-alt"></i>Store Location</a></li>
-                            <li><a href="#" class="text-white"><i class="fa fa-truck"></i>Order Status</a></li>
-                        </ul>
+                        <a href="#" class="text-white">Skryf in en wen!</a>
                     </div>
                 </div>
             </div>
@@ -75,17 +73,15 @@
                 <!-- Header Language & Currency Start -->
                 <div class="col">
                     <ul class="header-lan-curr">
-                        <li><a href="#">English</a>
+                        <li><a href="#">Afrikaans</a>
                             <ul class="curr-lan-sub-menu">
-                                <li><a href="#">Français</a></li>
-                                <li><a href="#">Deutsch</a></li>
+                                <li><a href="#">English</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">USD</a>
-                            <ul class="curr-lan-sub-menu">
-                                <li><a href="#">EUR</a></li>
-                                <li><a href="#">GBP</a></li>
-                            </ul>
+                        <li class="header2-search" id="top-search">
+                            <form action="#">
+                                <input type="text" placeholder="Search..."><button class="btn"><i class="fas fa-search"></i></button>
+                            </form>
                         </li>
                     </ul>
                 </div>

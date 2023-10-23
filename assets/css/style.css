@@ -290,7 +290,7 @@ hr {
 }
 
 .bg-primary2 {
-  background-color: #72A499 !important;
+  background-color: #137313 !important;
 }
 
 .text-primary2 {
@@ -14937,4 +14937,10 @@ body.offcanvas-open .sticky-header {
     font-size: 12px;
     letter-spacing: 0;
   }
+}
+
+/*CEIT Added */
+#top-search{
+  height: 0.5rem;
+  margin-top: -7px;
 }
