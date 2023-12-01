@@ -1043,7 +1043,7 @@ echo $vString;
 
     <Script>
 //  Set all image parent class to same min-height
-    $.fn.resizeProduct = function() {
+    $.fn.resizeDisplay = function() {
         var vProductThumbHeight = "0";
         $(".product-thumb").each(function () {
             var thHeight = $(this).height();
@@ -1054,13 +1054,24 @@ echo $vString;
         $(".product-thumb").each(function () {
             $(this).css("min-height", (vProductThumbHeight) + "px");
         });
+
+        var vProductTitleHeight = 0;
+        $(".product-info .title").each(function () {
+            var thHeight = $(this).height();
+            if (vProductTitleHeight < thHeight) {
+                vProductTitleHeight = thHeight;
+            }
+        });
+        $(".product-info .title").each(function () {
+            $(this).css("min-height", (vProductTitleHeight) + "px");
+        });
     }
 
     $( window ).on( "resize", function() {
-        $.fn.resizeProduct();
+        $.fn.resizeDisplay();
     });
     $(function() {
-        $.fn.resizeProduct();
+        $.fn.resizeDisplay();
     });
 
     </Script>

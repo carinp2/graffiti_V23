@@ -10456,7 +10456,7 @@ body.offcanvas-open .sticky-header {
   -webkit-transition: all 0.5s ease 0s;
   transition: all 0.5s ease 0s;
 /*  CEIT*/
-  min-height: 50px;
+/*  min-height: 50px;*/
 }
 .product-info .title a {
   color: #7E7E7E;
