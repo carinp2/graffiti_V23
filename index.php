@@ -10,7 +10,7 @@ require_once $root."/model/common.php";
 require_once $root."/model/books.php";
 
 require_once $root."/view/parts.php";
-require_once $root."/config/setLanguage.php";
+require_once $root."/config/setSesseions.php";
 
 $dbModelObj = new db();
 $commonModelObj = new common($dbModelObj);
@@ -27,12 +27,14 @@ echo $partsView->getCarousel();
 $vString = "<div class='section section-fluid'>
     <div class='container'>";
 
-        echo $partsView->getTopSections(209, 'af');
-        echo $partsView->getTopSections(209, 'en');
-        echo $partsView->getTopSections(447, '');
+        $vString .= $partsView->getTopSections(209, 'af');
+        $vString .= $partsView->getTopSections(209, 'en');
+        $vString .= $partsView->getTopSections(447, 'all');
 
     $vString .= "</div>
 </div>";
+
+echo $vString;
 ?>
 
 
@@ -114,7 +116,7 @@ $vString = "<div class='section section-fluid'>
                                                 <span class='product-badges'>
                                                     <span class='discount'>-13%</span>
                                                 </span>
-                                                <img src='assets/images/books/77.jpeg' alt='Product Image'>
+                                                <img src='images/books/77.jpeg' alt='Product Image'>
                                             </a>
                                         </div>
                                         <div class='product-info'>
@@ -1038,6 +1040,30 @@ $vString = "<div class='section section-fluid'>
 
     <!-- Main Activation JS -->
     <script src='assets/js/main1.1.js'></script>
+
+    <Script>
+//  Set all image parent class to same min-height
+    $.fn.resizeProduct = function() {
+        var vProductThumbHeight = "0";
+        $(".product-thumb").each(function () {
+            var thHeight = $(this).height();
+            if (vProductThumbHeight < thHeight) {
+                vProductThumbHeight = thHeight;
+            }
+        });
+        $(".product-thumb").each(function () {
+            $(this).css("min-height", (vProductThumbHeight) + "px");
+        });
+    }
+
+    $( window ).on( "resize", function() {
+        $.fn.resizeProduct();
+    });
+    $(function() {
+        $.fn.resizeProduct();
+    });
+
+    </Script>
 
 </body>
 

@@ -1,3 +1,10 @@
+GetBooks
+id, isbn, category, sub_category, title, summary, blob_path, special_price, price, cost_price, date_publish, date_loaded, new, special, top_seller, top_seller_rank, out_of_print, in_stock, publisher, language,
+0     1     2              3        4       5          6        7             8        38          9            10         11     12       13           14                  15          16      17          18
+category_string, sub_category_string, author, illustrator, translator, edit_by, default_discount, dimensions, weight, format, pages, new_rank, soon_discount, soon_rank, soon, special_rank, section, SortPrice
+        19              20              21          22          23         24           26           27         28      29      30      31          32            33       34       35         36
+
+
 Responsive
  - Add Language selection
  - Add Competitions

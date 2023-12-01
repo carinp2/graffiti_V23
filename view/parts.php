@@ -951,7 +951,7 @@ class partsView
 		$vBookResults = $this->booksModelObj->getBooks($vCondition, $vParams, $vOrder, $vLimit);
 
 		$vString = "<div class='section-title text-center pt-5 border-top'>
-			<h2 class='title title-icon-both'>".$this->commonModelObj->getText(510, $vSelectLanguage) /*Ons*/." ".$this->commonModelObj->getText($vType, $vSelectLanguage)."</h2>
+			<h2 class='title title-icon-both'>".$this->commonModelObj->getText(510, $_SESSION['graf_client']['language']) /*Ons*/." ".$this->commonModelObj->getText($vType, $vSelectLanguage)."</h2>
 		</div>
 		
 		<div class='products row row-cols-xl-6 row-cols-lg-6 row-cols-md-3 row-cols-sm-2 row-cols-2 mb-1'>";
@@ -959,338 +959,55 @@ class partsView
 				$vString .= "<div class='col'>
 					<div class='product'>
 						<div class='product-thumb hintT-middle' data-hint='".$this->commonModelObj->getText(511, $vSelectLanguage)/*Lees meer*/."'>
-							<a href='".$this->commonModelObj->getText(432, $vSelectLanguage) /*Boek*/."/".$_SESSION['graf_client']['language']."/".$book['id']."/".$book['title']."' class='image'>
-								<span class='product-badges'>
-									<span class='top-sell'>".$book['top_seller_rank']."</span>
-									<span class='discount'>";
-									$this->booksModelObj->getBookPrice($book);
-									$vString .= "</span>
-								</span>
-								<img src='assets/images/books/1.jpg' alt='Product Image'>
-							</a>
+							<a href='".$this->commonModelObj->getText(432, $vSelectLanguage) /*Boek*/."/".$_SESSION['graf_client']['language']."/".$book['id']."/".$book['title']."' class='image'>";
+							$vBookDiscount = $this->booksModelObj->getBookDiscount($book);
+							$vBookDiscountPrice = $this->booksModelObj->getBookPrice($book);
+							if((isset($book['top_seller_rank']) && $book['top_seller_rank'] > 0) || ($vBookDiscount > 0)) {
+								$vString .= "<span class='product-badges'>";
+								if(isset($book['top_seller_rank']) && $book['top_seller_rank'] > 0){
+									$vString .= "<span class='top-sell'>".$book['top_seller_rank']."</span>";
+								}
+								if($vBookDiscount > 0){
+									$vString .= "<span class='discount'> ";
+										$vString .= "-".$vBookDiscount."%";
+									$vString .= "</span>";
+								}
+								$vString .= "</span>";
+								}
+								if(!empty($book['blob_path'])){
+//									$vString .= "<img src='".$this->dbModelObj->conn_obj['server']."/images/books/".$book['blob_path']."' alt='".$book['title']."'>";
+									$vString .= "<img src='".$this->dbModelObj->conn_obj['server']."/images/books/".$book['blob_path']."' alt='".$book['title']."'>";
+								}
+								else {
+									$vString .= "<img src='".$this->dbModelObj->conn_obj['server']."/images/books/book_placeholder.png' alt='".$book['title']."'>";
+								}
+								$vString .= "</a>
 						</div>
 						<div class='product-info'>
-							<h6 class='title'><a href='product-details.html'>Boho Beard Mug</a></h6>
+							<h6 class='title'><a href='boek'>".$book['title']."</a></h6>
+							<h6 class='author'><a href='boek'>".$book['author']."</a></h6>
 							<span class='price'>
-								<span class='old'>$45.00</span>
-							<span class='new'>$39.00</span>
+								<span class='old'>R ".$book['price']."</span>
+							<span class='new'>R ".$vBookDiscountPrice."</span>
 							</span>
 							<div class='product-buttons'>
 								<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-								<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-								<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
+								<a href='#' class='product-button hintT-top' data-hint='".$this->commonModelObj->getText(24, $vSelectLanguage)/*Laai in mandjie*/."'><i class='fas fa-shopping-cart'></i></a>
+								<a href='wishlist.html' class='product-button add-to-wishlist hintT-top' data-hint='Add to wishlist'><i class='far fa-heart'></i></a>
+								<!--TODO add wishlist-added when already in wishlist-->
 							</div>
 						</div>
 					</div>
 				</div>";
 			}
 
-$vString .= "
+		$vString .= "</div>
 		<div class='row row-cols-12 text-end pb-3'>
 			<div class='col'>
-				<a href='http://DDEWRTE' class='l-more fw-normal font-monospace'>Meer Topverkopers</a>
+				<a href='http://DDEWRTE' class='l-more fw-normal font-monospace'>".$this->commonModelObj->getText(40, $_SESSION['graf_client']['language']) /*Meer*/." ".$this->commonModelObj->getText($vType, $vSelectLanguage)."</a>
 			</div>
-		</div>
-				<!-- Topverkopers End-->
-	
-				<!-- Bestsellers Title Start -->
-				<div class='section-title text-center pt-5 border-top'>
-					<h2 class='title title-icon-both'>Our Bestsellers</h2>
-				</div>
-				<!-- Bestsellers Title End -->
-	
-				<!-- Bestsellers Start -->
-				<div class='products row row-cols-xl-6 row-cols-lg-6 row-cols-md-3 row-cols-sm-2 row-cols-2 mb-1'>
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<span class='product-badges'>
-										<span class='discount'>-10%</span>
-									</span>
-									<img src='assets/images/books/7.jpg' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Lucky Wooden Elephant</a></h6>
-								<span class='price'>
-									$35.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<span class='product-badges'>
-										<span class='outofstock'><i class='far fa-frown'></i></span>
-									</span>
-									<img src='assets/images/books/8.jpg' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Decorative Christmas Fox</a></h6>
-								<span class='price'>
-									$50.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<img src='assets/images/books/9.jpg' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Aluminum Equestrian</a></h6>
-								<span class='price'>
-									$100.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<img src='assets/images/books/11.jpg' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Fish Cut Out Set</a></h6>
-								<span class='price'>
-									$9.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<img src='assets/images/books/22.png' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Electric Egg Blender</a></h6>
-								<span class='price'>
-									$200.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<img src='assets/images/books/33.jpg' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Electric Egg Blender</a></h6>
-								<span class='price'>
-									$200.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-	
-				<div class='row row-cols-12 text-end pb-3'>
-					<div class='col'>
-						<a href='http://DDEWRTE' class='l-more fw-normal font-monospace'>Meer Bestsellers</a>
-					</div>
-				</div>
-				<!-- Bestsellers End -->
-	
-				<!-- Topverkopers Kinders Title Start -->
-				<div class='section-title text-center pt-5 border-top'>
-					<h2 class='title title-icon-both'>Topverkoper Kinders</h2>
-				</div>
-				<!-- Topverkopers Kinders Title End -->
-	
-				<!-- Topverkopers Kinders Start -->
-				<div class='products row row-cols-xl-6 row-cols-lg-6 row-cols-md-3 row-cols-sm-2 row-cols-2 mb-1'>
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<span class='product-badges'>
-										<span class='discount'>-10%</span>
-									</span>
-									<img src='assets/images/books/44.jpg' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Lucky Wooden Elephant</a></h6>
-								<span class='price'>
-									$35.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<span class='product-badges'>
-										<span class='outofstock'><i class='far fa-frown'></i></span>
-										<span class='discount'>-20%</span>
-									</span>
-									<img src='assets/images/books/55.jpeg' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Decorative Christmas Fox</a></h6>
-								<span class='price'>
-									$50.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<img src='assets/images/books/66.jpeg' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Aluminum Equestrian</a></h6>
-								<span class='price'>
-									$100.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<img src='assets/images/books/77.jpeg' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Fish Cut Out Set</a></h6>
-								<span class='price'>
-									$9.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<img src='assets/images/books/55.jpeg' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Electric Egg Blender</a></h6>
-								<span class='price'>
-									$200.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-	
-					<div class='col'>
-						<div class='product'>
-							<div class='product-thumb hintT-middle' data-hint='Open book detail'>
-								<a href='product-details.html' class='image'>
-									<img src='assets/images/books/66.jpeg' alt='Product Image'>
-								</a>
-							</div>
-							<div class='product-info'>
-								<h6 class='title'><a href='product-details.html'>Electric Egg Blender</a></h6>
-								<span class='price'>
-									$200.00
-								</span>
-								<div class='product-buttons'>
-									<a href='#quickViewModal' data-bs-toggle='modal' class='product-button hintT-top' data-hint='Quick View'><i class='fas fa-search'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Add to Cart'><i class='fas fa-shopping-cart'></i></a>
-									<a href='#' class='product-button hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-	
-				<div class='row row-cols-12 text-end pb-3'>
-					<div class='col'>
-						<a href='http://DDEWRTE' class='l-more fw-normal font-monospace'>Meer Topverkoper Kinders</a>
-					</div>
-				</div>
-				<!-- Topverkopers Kinders End -->
+		</div>";
 
-		";
 		return $vString;
 	}
 }

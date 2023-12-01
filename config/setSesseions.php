@@ -20,8 +20,6 @@ if(!isset($_SESSION['graf_client']['language']) || empty($_SESSION['graf_client'
 	}
 }
 
-
-//TODO
 if(!isset($_SESSION['graf_client']['discount'])) {
     $_SESSION['graf_client']['discount'] = 0;
 }

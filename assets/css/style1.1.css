@@ -2169,7 +2169,7 @@ body.homepage-bg1.offcanvas-open {
   z-index: 9;
 }
 [class*=hintT]::before {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 12px;
   position: absolute;
@@ -2183,18 +2183,20 @@ body.homepage-bg1.offcanvas-open {
   text-transform: initial;
   pointer-events: none;
   opacity: 0;
-  /*CEIT*/
+  /*CEIT START*/
   /*color: #FFFFFF;*/
   /*background: #333333;*/
   /*-webkit-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);*/
   /*        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);*/
   /*text-shadow: 0 -1px 0 #000000;*/
   color: #FFFFFF;
-  background: #7a9a3b;
+  background: #6b8537;
   -webkit-box-shadow: 4px 4px 8px rgba(121, 153, 60, 0.42);
           box-shadow: 4px 4px 8px rgba(121, 153, 60, 0.42);
   text-shadow: 0 -1px 0 #38461b;
   border-radius: 2px;
+  /*border: 1px solid #FFFFFF*/
+/*  CEIT END*/
 }
 [class*=hintT]::after {
   position: absolute;
@@ -2215,25 +2217,30 @@ body.homepage-bg1.offcanvas-open {
 
 /* Position Middle CEIT*/
 .hintT-middle::before {
-  bottom: calc(60% - 4px);
+  /*bottom: calc(60% - 4px);CEIT*/
+  bottom: calc(50% - 4px);
   left: 50%;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
 }
 .hintT-middle::after {
-  bottom: calc(60% - 16px);
+  /*bottom: calc(60% - 16px);CEIT*/
+  bottom: calc(50% - 16px);
   left: 50%;
   -webkit-transform: translateX(-50%);
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
-  border-top-color: #7a9a3b;
+  /*border-top-color: #7a9a3b;CEIT*/
+  border-top-color: #6b8537;
 }
 .hintT-middle:hover::before {
-  bottom: calc(60% + 6px);
+  /*bottom: calc(60% + 6px);CEIT*/
+  bottom: calc(50% + 6px);
 }
 .hintT-middle:hover::after {
-  bottom: calc(60% - 5px);
+  /*bottom: calc(60% - 5px);CEIT*/
+  bottom: calc(50% - 6px);
 }
 /*CEIT*/
 
@@ -2252,7 +2259,7 @@ body.homepage-bg1.offcanvas-open {
       -ms-transform: translateX(-50%);
           transform: translateX(-50%);
   /*border-top-color: #333333;CEIT*/
-    border-top-color: #7a9a3b;
+    border-top-color: #6b8537;
 }
 .hintT-top:hover::before {
   bottom: calc(100% + 6px);
@@ -7948,7 +7955,8 @@ body.offcanvas-open .sticky-header {
 /*----------------------------------------*/
 /* Section Title Style One */
 .section-title {
-  margin-bottom: 80px;
+  /*margin-bottom: 80px;CEIT*/
+  margin-bottom: 50px;
 }
 .section-title .sub-title {
   /*font-family: "Modesty"; CEIT*/
@@ -7964,7 +7972,8 @@ body.offcanvas-open .sticky-header {
   margin-bottom: 0;
 }
 .section-title .title {
-  font-size: 56px;
+  /*font-size: 56px;*/
+  font-size: 48px;
   font-weight: 400;
   line-height: 1;
   margin-bottom: 0;
@@ -10026,7 +10035,8 @@ body.offcanvas-open .sticky-header {
   margin-bottom: -50px;
 }
 .products .product {
-  margin-bottom: 50px;
+  /*margin-bottom: 50px;CEIT*/
+  margin-bottom: 30px;
 }
 .products-no-space {
   margin-bottom: 0;
@@ -10076,7 +10086,7 @@ body.offcanvas-open .sticky-header {
   left: 0;
   width: 100%;
   /*CEIT*/
-  /*content: url("../images/title/bul1sb.png");*/
+  /*content: url("../images/others/tab-hover.webp");*/
   content: url("../images/title/bul1.png");
   -webkit-transition: all 0.5s ease 0s;
   transition: all 0.5s ease 0s;
@@ -10211,7 +10221,8 @@ body.offcanvas-open .sticky-header {
           transform: translateY(0);
   opacity: 1;
 }
-.product:hover .product-info .title, .product:hover .product-info .price {
+/*.product:hover .product-info .title, .product:hover .product-info .price {*/
+.product:hover .product-info .title, .product:hover .product-info .author, .product:hover .product-info .price {
   visibility: hidden;
   -webkit-transform: translateY(-20px);
       -ms-transform: translateY(-20px);
@@ -10245,6 +10256,8 @@ body.offcanvas-open .sticky-header {
   position: relative;
   z-index: 2;
   margin: 0;
+/*  CEIT*/
+/*  min-height: 323px;*/
 }
 .product-thumb .image {
   position: relative;
@@ -10318,10 +10331,10 @@ body.offcanvas-open .sticky-header {
 .product-badges span {
   font-weight: 400;
   /*line-height: 48px; CEIT*/
-  line-height: 42px;
+  line-height: 36px;
   z-index: 5;
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   margin-bottom: 12px;
   text-align: center;
   text-transform: lowercase;
@@ -10336,11 +10349,12 @@ body.offcanvas-open .sticky-header {
   /*background-color: #98D8CA;*/
   /*background-color: #2c98be;*/
   background-color: #be2c2cc4;
-  font-size: larger;
+  font-size: 24px;
 }
 .product-badges span.discount {
   /*background-color: #C61932;CEIT*/
   background-color: #94bd42;
+  font-size: 17px;
 }
 .product-badges span.outofstock {
   background-color: #333333;
@@ -10431,7 +10445,8 @@ body.offcanvas-open .sticky-header {
   text-align: center;
 }
 .product-info:not(:first-child) {
-  margin-top: 28px;
+  /*margin-top: 28px;CEIT*/
+  margin-top: 15px;
 }
 .product-info .title {
   font-family: "Futura";
@@ -10440,6 +10455,8 @@ body.offcanvas-open .sticky-header {
   margin-bottom: 12px;
   -webkit-transition: all 0.5s ease 0s;
   transition: all 0.5s ease 0s;
+/*  CEIT*/
+  min-height: 50px;
 }
 .product-info .title a {
   color: #7E7E7E;
@@ -10447,6 +10464,23 @@ body.offcanvas-open .sticky-header {
 .product-info .title a:hover {
   color: #333333;
 }
+/*CEIT START*/
+.product-info .author {
+  font-family: "Futura";
+  font-size: 13px;
+  font-weight: 400;
+  /*margin-bottom: 10px;*/
+  -webkit-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+  /*min-height: 10px;*/
+}
+.product-info .author a {
+  color: #7E7E7E;
+}
+.product-info .author a:hover {
+  color: #333333;
+}
+/*CEIT END*/
 .product-info .price {
   font-size: 16px;
   font-weight: 600;
@@ -10603,7 +10637,7 @@ body.offcanvas-open .sticky-header {
   float: right;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px), only screen and (max-width: 767px) {
-  .product-info .title, .product-info .price, .product-info .product-buttons {
+  .product-info .title, .product-info .author, .product-info .price, .product-info .product-buttons {
     visibility: visible !important;
     -webkit-transform: translateY(0) !important;
         -ms-transform: translateY(0) !important;
