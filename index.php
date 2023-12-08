@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
 	session_start();
 }
 $root = $_SERVER["DOCUMENT_ROOT"];
-
+echo $root;
 require_once $root."/model/db.php";
 require_once $root."/model/common.php";
 require_once $root."/model/books.php";

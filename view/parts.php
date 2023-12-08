@@ -976,10 +976,10 @@ class partsView
 								}
 								if(!empty($book['blob_path'])){
 //									$vString .= "<img src='".$this->dbModelObj->conn_obj['server']."/images/books/".$book['blob_path']."' alt='".$book['title']."'>";
-									$vString .= "<img src='".$this->dbModelObj->conn_obj['server']."/images/books/".$book['blob_path']."' alt='".$book['title']."'>";
+									$vString .= "<img src='".$this->dbModelObj->conn_obj['server']."images/books/".$book['blob_path']."' alt='".$book['title']."'>";
 								}
 								else {
-									$vString .= "<img src='".$this->dbModelObj->conn_obj['server']."/images/books/book_placeholder.png' alt='".$book['title']."'>";
+									$vString .= "<img src='".$this->dbModelObj->conn_obj['server']."images/books/book_placeholder.png' alt='".$book['title']."'>";
 								}
 								$vString .= "</a>
 						</div>
@@ -1012,6 +1012,13 @@ class partsView
 	}
 
 	public function getProductTabs(){
+        $vOutOfPrint = 0;
+        $vSearchValue = 1;
+        $vLanguageAf = 'af';
+        $vLanguageEn = 'en';
+        $vNewRank = 1;
+        $vNuweVrystellingsCondition = "WHERE b.out_of_print = ? and b.new = ? and b.language = ? and b.new_rank >= ? and (b.category != 4 and b.category != 5 and b.category != 8 and b.category != 9 and b.category != 7 and b.category != 6)";
+        $vNuweVrystellings = $this->booksModelObj->getBooks($vNuweVrystellingsCondition, [&$vOutOfPrint, &$vSearchValue, &$vLanguageAf, &$vNewRank], "new_rank ASC, date_publish DESC", "LIMIT = 8");
 		$vString = "<div class='section section-fluid section-padding bg-white pt-5 mt-0 mt-md-3 border-top'>
 			<div class='container-fluid'>
 				<div class='row'>
