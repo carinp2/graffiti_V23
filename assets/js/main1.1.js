@@ -36,54 +36,78 @@
     /*--
         Sub Menu & Mega Menu Alignment
     -----------------------------------*/
-    var subMenuMegaMenuAlignment = () => {
-        var $this,
-            $subMenu,
-            $megaMenu,
-            $siteMainMenu = $('.site-main-menu');
 
-        $siteMainMenu.each(function () {
-            $this = $(this);
-            if ($this.is('.site-main-menu-left, .site-main-menu-right') && $this.closest('.section-fluid').length) {
-                $megaMenu = $this.find('.mega-menu');
-                $this.css("position", "relative");
-                if ($this.hasClass('site-main-menu-left')) {
-                    $megaMenu.css({
-                        "left": "0px",
-                        "right": "auto"
-                    });
-                } else if ($this.hasClass('site-main-menu-left')) {
-                    $megaMenu.css({
-                        "right": "0px",
-                        "left": "auto"
-                    });
-                }
-            }
-        });
-        $subMenu = $('.sub-menu');
-        if ($subMenu.length) {
-            $subMenu.each(function () {
-                $this = $(this);
-                var $elementOffsetLeft = $this.offset().left,
-                    $elementWidth = $this.outerWidth(true),
-                    $windowWidth = $window.outerWidth(true) - 10,
-                    isElementVisible = ($elementOffsetLeft + $elementWidth < $windowWidth);
-                if (!isElementVisible) {
-                    if ($this.hasClass('mega-menu')) {
-                        var $this = $(this),
-                            $thisOffsetLeft = $this.parent().offset().left,
-                            $widthDiff = $windowWidth - $elementWidth,
-                            $left = $thisOffsetLeft - ($widthDiff / 2);
-                        $this.attr("style", "left:" + -$left + "px !important").parent().css("position", "relative");
-                    } else {
-                        $this.parent().addClass('align-left');
-                    }
-                } else {
-                    $this.removeAttr('style').parent().removeClass('align-left');
-                }
-            });
-        }
-    }
+    // $(function () {
+    //
+    //     $(".xm li").on('mouseenter mouseleave', function (e) {alert(0);
+    //         if ($('ul', this).length) {
+    //             var elm = $('ul:first', this);
+    //             var off = elm.offset();
+    //             var l = off.left;
+    //             var w = elm.width();
+    //             var docH = $(".container").height();
+    //             var docW = $(".container").width();
+    //
+    //             var isEntirelyVisible = (l + w <= docW);
+    //
+    //             if (!isEntirelyVisible) {
+    //                 $(this).addClass('edge');
+    //             } else {
+    //                 $(this).removeClass('edge');
+    //             }
+    //         }
+    //     });
+    // });
+
+    // var subMenuMegaMenuAlignment = () => {
+    //     var $this,
+    //         $subMenu,
+    //         $megaMenu,
+    //         $siteMainMenu = $('.site-main-menu');
+
+        // $siteMainMenu.each(function () {
+        //     $this = $(this);
+        //     if ($this.is('.site-main-menu-left, .site-main-menu-right') && $this.closest('.section-fluid').length) {
+        //         $megaMenu = $this.find('.mega-menu');
+        //         $this.css("position", "relative");
+        //         if ($this.hasClass('site-main-menu-left')) {
+        //             $megaMenu.css({
+        //                 "left": "0px",
+        //                 "right": "auto"
+        //             });
+        //         } else if ($this.hasClass('site-main-menu-left')) {
+        //             $megaMenu.css({
+        //                 "right": "0px",
+        //                 "left": "auto"
+        //             });
+        //         }
+        //     }
+        // });
+        // $subMenu = $('.sub-menu');
+        // if ($subMenu.length) {
+            // $subMenu.each(function () {
+            //     $this = $(this);
+            //     var $elementOffsetLeft = $this.offset().left,
+            //         $elementWidth = $this.outerWidth(true),
+            //         $windowWidth = $window.outerWidth(true) - 10,
+            //         isElementVisible = ($elementOffsetLeft + $elementWidth < $windowWidth);
+            //     if (!isElementVisible) {
+            //         if ($this.hasClass('mega-menu')) {
+            //             // var $this = $(this),
+            //                 // $thisOffsetLeft = $this.parent().offset().left,
+            //                 // $widthDiff = $windowWidth - $elementWidth,
+            //                 // $left = $thisOffsetLeft - ($widthDiff / 2);
+            //             // $this.attr("style", "left:" + -$left + "px !important").parent().css("position", "relative");
+            //             $this.attr("style", "right: 0.01rem !important; left: unset !important");
+            //         } else {
+            //             $this.parent().addClass('align-left');
+            //         }
+            //     } else {
+            //         $this.removeAttr('style').parent().removeClass('align-left');
+            //     }
+            // });
+    //     }
+    // }
 
     /*--
         Off Canvas Function
@@ -789,13 +813,14 @@
         };
     $productPopupGalleryBtn.on('click', $openPhotoSwipe);
 
-    $('.product-zoom').each(function () {
-        var $this = $(this),
-            $image = $this.data('image');
-        $this.zoom({
-            url: $image
-        });
-    });
+    // CEIT
+    // $('.product-zoom').each(function () {
+    //     var $this = $(this),
+    //         $image = $this.data('image');
+    //     $this.zoom({
+    //         url: $image
+    //     });
+    // });
 
     /*--
         Sticky Sidebar
@@ -853,17 +878,17 @@
         On Load Function
     -----------------------------------*/
     $window.on('load', function () {
-        subMenuMegaMenuAlignment();
+        // subMenuMegaMenuAlignment();
     });
 
     /*--
         Resize Function
     -----------------------------------*/
     $window.resize(function () {
-        subMenuMegaMenuAlignment();
+        // subMenuMegaMenuAlignment();
     });
 
-    // CEIT
+    // CEIT custom START
 
     // To remove all tab carousel from displaying; added class 'active' to all to prevent funny 1st display
     // $window.on('load', function () {
@@ -880,6 +905,69 @@
         $("#"+tabId+" .slick-track").attr("style", "opacity: 1; width: 4828px; transform: translate3d(-1420px, 0px, 0px);");
     });
 
-    // CEIT
+    $('.change-language').on('click', function () {
+        var vNewLanguage = $(this).attr("data-lang");
+
+        $.ajax({
+            type:'POST',
+            url:'controller/common.php',
+            data:'action=change_language&new_language='+vNewLanguage,
+            success:function(response){
+                window.location.reload();
+            }
+        });
+    });
+
+    $(".quick-view").click(function() {
+        var vShortSummary = shortString($(this).data('summary'), 250);
+
+        $('#bookQuickViewModal #quickview-book-id').val($(this).data('bookid'));
+        $('#bookQuickViewModal #quickview-title').html($(this).data('title'));
+        $('#bookQuickViewModal #quikview-author').html($(this).data('author'));
+        $('#bookQuickViewModal #quikview-category').html($(this).data('category'));
+        $('#bookQuickViewModal #quikview-subcategory').html($(this).data('subcategory'));
+        $('#bookQuickViewModal #quickview-summary').html(vShortSummary);
+        $('#bookQuickViewModal #quickview-image').attr('src', $(this).data('image'));
+        if($(this).data('priceold') > $(this).data('pricenew')){
+            $('#bookQuickViewModal #quikview-price-old').removeClass('d-none');
+            $('#bookQuickViewModal #quikview-price-old').html("R "+$(this).data('priceold'));
+        }
+        else {
+            $('#bookQuickViewModal #quikview-price-old').addClass('d-none');
+            $('#bookQuickViewModal #quikview-price-old').html('');
+        }
+        $('#bookQuickViewModal #quikview-price-new').html("R "+$(this).data('pricenew'));
+        if($(this).data('dimensions').length == 0 || $(this).data('dimensions') == 0 || $(this).data('dimensions') === '') {
+            $('#bookQuickViewModal #quickview-dimensions').html("-");
+        }
+        else {
+            $('#bookQuickViewModal #quickview-dimensions').html($(this).data('dimensions')+"mm");
+        }
+        if($(this).data('weight') == 0) {
+            $('#bookQuickViewModal #quickview-weight').html("-");
+        }
+        else {
+            $('#bookQuickViewModal #quickview-weight').html($(this).data('weight')+"g");
+        }
+        if($(this).data('pages').length == 0 || $(this).data('pages') == 0 || $(this).data('pages') === '') {
+            $('#bookQuickViewModal #quickview-pages').html("-");
+        }
+        else {
+            $('#bookQuickViewModal #quickview-pages').html($(this).data('pages'));
+        }
+        if($(this).data('format').length == 0 || $(this).data('format') == 0 || $(this).data('format') === '') {
+            $('#bookQuickViewModal #quickview-format').html("-");
+        }
+        else {
+            $('#bookQuickViewModal #quickview-format').html($(this).data('format'));
+        }
+    });
+
+    function shortString(str, maxLen, separator = ' ') {
+        if (str.length <= maxLen) return str;
+        return str.substring(0, str.lastIndexOf(separator, maxLen))+"<i class='fas fa-ellipsis-h ps-1 align-bottom font-s'></i>";
+    }
+
+    // CEIT custom END
 
 })(jQuery);

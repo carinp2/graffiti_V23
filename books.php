@@ -10,7 +10,7 @@ require_once $root."/model/common.php";
 require_once $root."/model/books.php";
 
 require_once $root."/view/parts.php";
-require_once $root."/config/setSesseions.php";
+require_once $root."/config/setSessions.php";
 
 $dbModelObj = new db();
 $commonModelObj = new common($dbModelObj);

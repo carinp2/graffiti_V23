@@ -99,7 +99,6 @@ class common
 		return $sent;
 	}
 
-//	TODO
 	public function getText($vId, $vLanguage)
 	{
 		$vSQL = "SELECT ".$vLanguage." AS word FROM lk_language_text where id = ?";
@@ -114,16 +113,15 @@ class common
 		}
 	}
 
-//TODO
 	public function getLookupValue($vTable, $vField, $vWhereField, $vValue, $vOrderBy = '')
 	{
-		$vSQL = 'SELECT '.$vField.' FROM '.$vTable.' WHERE '.$vWhereField.' = ? '.$vOrderBy;
+		$vSQL = 'SELECT '.$vField.' as textString FROM '.$vTable.' WHERE '.$vWhereField.' '.$vOrderBy;
 		$params = array(&$vValue);
 
-		$result = $this->dbModelObj->query($vSQL, $params)->fetchAll();
+		$result = $this->dbModelObj->query($vSQL, $params)->fetchArray();
 
 		if (isset($result) && !empty($result)) {
-			return $result;
+			return $result['textString'];
 		} else {
 			return false;
 		}
@@ -155,6 +153,20 @@ class common
 	{
 		$vId = substr($vRandomId, $length, $min_length);
 		return $vId;
+	}
+
+	public function getCount($vField, $vTable, $vWhere, $vValue)
+	{
+		$vSQL = 'SELECT count('.$vField.') as number_rows FROM '.$vTable.' WHERE '.$vWhere;
+		$params = array(&$vValue);
+
+		$result = $this->dbModelObj->query($vSQL, $params)->fetchArray();
+
+		if (isset($result) && !empty($result)) {
+			return $result['textString'];
+		} else {
+			return false;
+		}
 	}
 
 }

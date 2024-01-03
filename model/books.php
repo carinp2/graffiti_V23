@@ -14,7 +14,8 @@ class booksModel
 		$this->commonModelObj = $commonModelObj;
     }
 
-	public function getBooks($vCondition, $vParams, $vOrder = '', $vLimit = ''){
+	public function getBooks($vCondition, $vParams, $vOrder = '', $vLimit = '')
+	{
 		//Ln 22 to 26 - Leonie request 26-04-2022 - Sort on special price if special price smaller than price
         $vSQL = "SELECT b.id, b.isbn, b.category, b.sub_category, b.title, b.summary, b.blob_path, b.special_price, b.price, b.cost_price, b.date_publish, b.date_loaded, b.new, b.special, b.top_seller, b.top_seller_rank, b.out_of_print, b.in_stock, 
 			b.publisher, b.language, c.category AS category_string, sc.sub_category_".$_SESSION['graf_client']['language']." AS sub_category_string, b.author, b.illustrator, b.translator, b.edit_by, b.default_discount, b.dimensions, b.weight, 
@@ -37,7 +38,8 @@ class booksModel
         }
 	}
 
-	public function getBookPrice($vBook){
+	public function getBookPrice($vBook)
+	{
 		$vDefaultDiscountPrice = round($vBook['price']-($vBook['price']*$vBook['default_discount']));
 		$vSpecialDiscountPrice = (!empty($vBook['special_price']) && $vBook['special_price'] > 0 ?  $vBook['special_price'] : $vBook['price']);
 		$vClientDiscountPrice = round($vBook['price']-($vBook['price']*$_SESSION['graf_client']['discount']));
@@ -57,7 +59,8 @@ class booksModel
 		return $vFinalPrice;
 	}
 
-	public function getBookDiscount($vBook){
+	public function getBookDiscount($vBook)
+	{
 		$vDefaultDiscount = $vBook['default_discount']*100;
 		$vSpecialDiscount = (($vBook['price']-$vBook['special_price'])/$vBook['price'])*100;
 		$vClientDiscount = $_SESSION['graf_client']['discount'];
@@ -75,5 +78,34 @@ class booksModel
 			$vFinalDiscount = 0;
 		}
 		return $vFinalDiscount;
+	}
+
+	public function getMenuCategories($vParams)
+	{
+        $vSQL = "SELECT id, category, related from categories where id in (select distinct(category) from books where out_of_print = ? AND section = ?) and activex = ? and (language = ? or language = 'all') ORDER BY sort_order ASC";
+
+        $vResult = $this->dbModelObj->query($vSQL, $vParams)->fetchAll();
+
+        if (isset($vResult) && !empty($vResult)) {
+            return $vResult;
+        } else {
+            return false;
+        }
+	}
+
+	public function getMenuSubCategories($vParams, $vRelated, $vLimit = '')
+	{
+        $vSQL = "SELECT id, category_id, sub_category_".$_SESSION['graf_client']['language']." AS sub_category, sort_order_".$_SESSION['graf_client']['language']." AS sort_order 
+        	FROM sub_categories 
+        	WHERE category_id in (".$vRelated.") AND activex = ? AND id IN (SELECT DISTINCT(sub_category) FROM books WHERE out_of_print = ? AND section = ? and category in (".$vRelated."))
+        	ORDER BY category_id asc, sort_order_".$_SESSION['graf_client']['language']." ASC ".$vLimit;
+
+        $vResult = $this->dbModelObj->query($vSQL, $vParams)->fetchAll();
+
+        if (isset($vResult) && !empty($vResult)) {
+            return $vResult;
+        } else {
+            return false;
+        }
 	}
 }

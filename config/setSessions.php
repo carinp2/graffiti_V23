@@ -10,7 +10,7 @@ if(!isset($_COOKIE['cookie_graf_language']) || $_COOKIE['cookie_graf_language'] 
     setcookie("cookie_graf_language", 'af', $past, "/", $vBaseUrl, false, true);//1 year
     setcookie("cookie_graf_language", 'af', time() + (86400*365), "/", $vBaseUrl, false, true);//1 year
 }
-if(!isset($_SESSION['graf_client']['language']) || empty($_SESSION['graf_client']['language'] == '') || ($_SESSION['graf_client']['language'] != 'af' && $_SESSION['graf_client']['language'] != 'en')){
+if(!isset($_SESSION['graf_client']['language']) || empty($_SESSION['graf_client']['language'])){
     unset($_SESSION['graf_client']['language']);
 	if(!isset($_SESSION['graf_client']['language']) && isset($_COOKIE['graf_language'])){
 		$_SESSION['graf_client']['language'] = $_COOKIE['graf_language'];

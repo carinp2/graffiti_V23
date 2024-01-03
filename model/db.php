@@ -345,13 +345,4 @@ class db
 		return $result;
 	}
 
-	public function insertAuditTrail($statement)
-	{
-		try {
-			$this->executeStatement($statement);
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
-		}
-	}
-
 }

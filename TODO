@@ -9,5 +9,7 @@ Responsive
  - Add Language selection
  - Add Competitions
 
+
  Database
  - Add all lk_language_text entries from 510
+ - Add language varchar(3), related varcher(10) to categories and update
