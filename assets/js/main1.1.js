@@ -37,77 +37,79 @@
         Sub Menu & Mega Menu Alignment
     -----------------------------------*/
 
-    // $(function () {
-    //
-    //     $(".xm li").on('mouseenter mouseleave', function (e) {alert(0);
-    //         if ($('ul', this).length) {
-    //             var elm = $('ul:first', this);
-    //             var off = elm.offset();
-    //             var l = off.left;
-    //             var w = elm.width();
-    //             var docH = $(".container").height();
-    //             var docW = $(".container").width();
-    //
-    //             var isEntirelyVisible = (l + w <= docW);
-    //
-    //             if (!isEntirelyVisible) {
-    //                 $(this).addClass('edge');
-    //             } else {
-    //                 $(this).removeClass('edge');
-    //             }
-    //         }
-    //     });
-    // });
+    $(function () {
 
-    // var subMenuMegaMenuAlignment = () => {
-    //     var $this,
-    //         $subMenu,
-    //         $megaMenu,
-    //         $siteMainMenu = $('.site-main-menu');
+        $(".xm li").on('mouseenter mouseleave', function (e) {alert(0);
+            if ($('ul', this).length) {
+                var elm = $('ul:first', this);
+                var off = elm.offset();
+                var l = off.left;
+                var w = elm.width();
+                var docH = $(".container").height();
+                var docW = $(".container").width();
 
-        // $siteMainMenu.each(function () {
-        //     $this = $(this);
-        //     if ($this.is('.site-main-menu-left, .site-main-menu-right') && $this.closest('.section-fluid').length) {
-        //         $megaMenu = $this.find('.mega-menu');
-        //         $this.css("position", "relative");
-        //         if ($this.hasClass('site-main-menu-left')) {
-        //             $megaMenu.css({
-        //                 "left": "0px",
-        //                 "right": "auto"
-        //             });
-        //         } else if ($this.hasClass('site-main-menu-left')) {
-        //             $megaMenu.css({
-        //                 "right": "0px",
-        //                 "left": "auto"
-        //             });
-        //         }
-        //     }
-        // });
-        // $subMenu = $('.sub-menu');
-        // if ($subMenu.length) {
-            // $subMenu.each(function () {
-            //     $this = $(this);
-            //     var $elementOffsetLeft = $this.offset().left,
-            //         $elementWidth = $this.outerWidth(true),
-            //         $windowWidth = $window.outerWidth(true) - 10,
-            //         isElementVisible = ($elementOffsetLeft + $elementWidth < $windowWidth);
-            //     if (!isElementVisible) {
-            //         if ($this.hasClass('mega-menu')) {
-            //             // var $this = $(this),
-            //                 // $thisOffsetLeft = $this.parent().offset().left,
-            //                 // $widthDiff = $windowWidth - $elementWidth,
-            //                 // $left = $thisOffsetLeft - ($widthDiff / 2);
-            //             // $this.attr("style", "left:" + -$left + "px !important").parent().css("position", "relative");
-            //             $this.attr("style", "right: 0.01rem !important; left: unset !important");
-            //         } else {
-            //             $this.parent().addClass('align-left');
-            //         }
-            //     } else {
-            //         $this.removeAttr('style').parent().removeClass('align-left');
-            //     }
-            // });
-    //     }
-    // }
+                var isEntirelyVisible = (l + w <= docW);
+
+                if (!isEntirelyVisible) {
+                    $(this).addClass('edge');
+                } else {
+                    $(this).removeClass('edge');
+                }
+            }
+        });
+    });
+
+    var subMenuMegaMenuAlignment = () => {
+        var $this,
+            $subMenu,
+            $megaMenu,
+            $siteMainMenu = $('.site-main-menu');
+
+        $siteMainMenu.each(function () {
+            $this = $(this);
+            if ($this.is('.site-main-menu-left, .site-main-menu-right') && $this.closest('.section-fluid').length) {
+                $megaMenu = $this.find('.mega-menu');
+                $this.css("position", "relative");
+                if ($this.hasClass('site-main-menu-left')) {
+                    $megaMenu.css({
+                        "left": "0px",
+                        "right": "auto"
+                    });
+                } else if ($this.hasClass('site-main-menu-left')) {
+                    $megaMenu.css({
+                        "right": "0px",
+                        "left": "auto"
+                    });
+                }
+            }
+        });
+        $subMenu = $('.sub-menu');
+        if ($subMenu.length) {
+            $subMenu.each(function () {
+                $this = $(this);
+                var $elementOffsetLeft = $this.offset().left,
+                    $elementWidth = $this.outerWidth(true),
+                    $windowWidth = $window.outerWidth(true) - 10,
+                    isElementVisible = ($elementOffsetLeft + $elementWidth < $windowWidth);
+                if (!isElementVisible) {
+                    if ($this.hasClass('mega-menu')) {
+                        // CEIT START
+                        // var $this = $(this),
+                        //     $thisOffsetLeft = $this.parent().offset().left,
+                        //     $widthDiff = $windowWidth - $elementWidth,
+                        //     $left = $thisOffsetLeft - ($widthDiff / 2);
+                        // $this.attr("style", "left:" + -$left + "px !important").parent().css("position", "relative");
+                        $this.attr("style", "right: 0.01rem !important; left: unset !important");
+                        // CEIT END
+                    } else {
+                        $this.parent().addClass('align-left');
+                    }
+                } else {
+                    $this.removeAttr('style').parent().removeClass('align-left');
+                }
+            });
+        }
+    }
 
     /*--
         Off Canvas Function
@@ -469,67 +471,67 @@
             }
         ]
     });
-    // CEIT
-    // // Product List Slider
-    // $('.product-list-slider').slick({
-    //     rows: 3,
-    //     prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
-    //     nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
-    // });
-    //
-    // // Single Product Slider
-    // $('.product-gallery-slider').slick({
-    //     dots: true,
-    //     infinite: true,
-    //     slidesToShow: 1,
-    //     slidesToScroll: 1,
-    //     asNavFor: '.product-thumb-slider, .product-thumb-slider-vertical',
-    //     prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
-    //     nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
-    // });
-    // $('.product-thumb-slider').slick({
-    //     infinite: true,
-    //     slidesToShow: 4,
-    //     slidesToScroll: 1,
-    //     focusOnSelect: true,
-    //     asNavFor: '.product-gallery-slider',
-    //     prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
-    //     nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
-    // });
-    // $('.product-thumb-slider-vertical').slick({
-    //     infinite: true,
-    //     slidesToShow: 3,
-    //     slidesToScroll: 1,
-    //     vertical: true,
-    //     focusOnSelect: true,
-    //     asNavFor: '.product-gallery-slider',
-    //     prevArrow: '<button class="slick-prev"><i class="ti-angle-up"></i></button>',
-    //     nextArrow: '<button class="slick-next"><i class="ti-angle-down"></i></button>'
-    // });
-    //
-    // // Blog Carousel
-    // $('.blog-carousel').slick({
-    //     infinite: true,
-    //     slidesToShow: 3,
-    //     slidesToScroll: 1,
-    //     focusOnSelect: true,
-    //     prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
-    //     nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>',
-    //     responsive: [{
-    //             breakpoint: 991,
-    //             settings: {
-    //                 slidesToShow: 2
-    //             }
-    //         },
-    //         {
-    //             breakpoint: 767,
-    //             settings: {
-    //                 slidesToShow: 1
-    //             }
-    //         }
-    //     ]
-    // });
-    //
+
+    // Product List Slider
+    $('.product-list-slider').slick({
+        rows: 3,
+        prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
+        nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
+    });
+
+    // Single Product Slider
+    $('.product-gallery-slider').slick({
+        dots: true,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        asNavFor: '.product-thumb-slider, .product-thumb-slider-vertical',
+        prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
+        nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
+    });
+    $('.product-thumb-slider').slick({
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        focusOnSelect: true,
+        asNavFor: '.product-gallery-slider',
+        prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
+        nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>'
+    });
+    $('.product-thumb-slider-vertical').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        vertical: true,
+        focusOnSelect: true,
+        asNavFor: '.product-gallery-slider',
+        prevArrow: '<button class="slick-prev"><i class="ti-angle-up"></i></button>',
+        nextArrow: '<button class="slick-next"><i class="ti-angle-down"></i></button>'
+    });
+
+    // Blog Carousel
+    $('.blog-carousel').slick({
+        infinite: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        focusOnSelect: true,
+        prevArrow: '<button class="slick-prev"><i class="ti-angle-left"></i></button>',
+        nextArrow: '<button class="slick-next"><i class="ti-angle-right"></i></button>',
+        responsive: [{
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 2
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 1
+                }
+            }
+        ]
+    });
+    //    // CEIT
     // // Brand Carousel
     // $('.brand-carousel').slick({
     //     infinite: true,
@@ -814,13 +816,13 @@
     $productPopupGalleryBtn.on('click', $openPhotoSwipe);
 
     // CEIT
-    // $('.product-zoom').each(function () {
-    //     var $this = $(this),
-    //         $image = $this.data('image');
-    //     $this.zoom({
-    //         url: $image
-    //     });
-    // });
+    $('.product-zoom').each(function () {
+        var $this = $(this),
+            $image = $this.data('image');
+        $this.zoom({
+            url: $image
+        });
+    });
 
     /*--
         Sticky Sidebar
@@ -878,14 +880,14 @@
         On Load Function
     -----------------------------------*/
     $window.on('load', function () {
-        // subMenuMegaMenuAlignment();
+        subMenuMegaMenuAlignment();
     });
 
     /*--
         Resize Function
     -----------------------------------*/
     $window.resize(function () {
-        // subMenuMegaMenuAlignment();
+        subMenuMegaMenuAlignment();
     });
 
     // CEIT custom START

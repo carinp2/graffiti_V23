@@ -17,8 +17,8 @@ php_value date.timezone 'Africa/Johannesburg'
     RewriteRule ^/?$ index.php [L]
     RewriteRule	^Tuisblad/?$    index.php	[B,NC,L]
     RewriteRule	^Home/?$    index.php	[B,NC,L]
-    RewriteRule	^Boek/([^\/]+)/([^\/]+)/([^\/]+)/?$  books.php?lang=$1&id=$2  [NC,L]
-    RewriteRule	^Book/([^\/]+)/([^\/]+)/([^\/]+)/?$  books.php?lang=$1&id=$2  [NC,L]
+    RewriteRule	^Boek/([^\/]+)/([^\/]+)/([^\/]+)/?$  books.php?lang=$1&id=$2&title=$3  [NC,L]
+    RewriteRule	^Book/([^\/]+)/([^\/]+)/([^\/]+)/?$  books.php?lang=$1&id=$2&title=$3  [NC,L]
 
 #    RewriteRule	^([^/\.]+)/([^/\.]+)/([^/\.]+)/([^/\.]+)/([^/\.]+)/([^/\.]+)/([^/\.]+)?$	index.php?page=$3&lang=$1&id=$2&c_id=$4&sort=$5&cat=$6&subcat=$7	[B,NC,L]
 #    RewriteRule	^([^/\.]+)/([^/\.]+)/([^/\.]+)/([^/\.]+)/([^/\.]+)/([^/\.]+)?$	index.php?page=$3&lang=$1&id=$2&c_id=$4&sort=$5&cat=$6	[B,NC,L]

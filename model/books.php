@@ -38,6 +38,19 @@ class booksModel
         }
 	}
 
+	public function getBookImages($vCondition, $vParams, $vOrder = '', $vLimit = '')
+	{
+        $vSQL = "SELECT blob_path FROM book_images ".$vCondition." ".$vOrder." ".$vLimit;
+
+        $vResult = $this->dbModelObj->query($vSQL, $vParams)->fetchAll();
+
+        if (isset($vResult) && !empty($vResult)) {
+            return $vResult;
+        } else {
+            return false;
+        }
+	}
+
 	public function getBookPrice($vBook)
 	{
 		$vDefaultDiscountPrice = round($vBook['price']-($vBook['price']*$vBook['default_discount']));
@@ -82,7 +95,7 @@ class booksModel
 
 	public function getMenuCategories($vParams)
 	{
-        $vSQL = "SELECT id, category, related from categories where id in (select distinct(category) from books where out_of_print = ? AND section = ?) and activex = ? and (language = ? or language = 'all') ORDER BY sort_order ASC";
+        $vSQL = "SELECT id, category_".$_SESSION['graf_client']['language']." AS category, related from categories where id in (select distinct(category) from books where out_of_print = ? AND section = ?) and activex = ? and (language = ? or language = 'all') ORDER BY sort_order ASC";
 
         $vResult = $this->dbModelObj->query($vSQL, $vParams)->fetchAll();
 
