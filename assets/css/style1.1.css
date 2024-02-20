@@ -104,7 +104,8 @@ body {
   position: relative;
   visibility: visible;
   overflow-x: hidden;
-  color: #696969;
+  /*color: #696969;CEIT*/
+  color: #777777;
   background-color: #FFFFFF;
 }
 
@@ -10504,7 +10505,7 @@ body.offcanvas-open .sticky-header {
   color: #333333;
 }
 /*CEIT START*/
-.product-info .author {
+.product-info .author, .product-summery .author, .product-summery .category {
   font-family: "Futura";
   font-size: 13px;
   font-weight: 400;
@@ -10513,10 +10514,10 @@ body.offcanvas-open .sticky-header {
   transition: all 0.5s ease 0s;
   /*min-height: 10px;*/
 }
-.product-info .author a {
+.product-info .author a, .product-summery .author a, .product-summery .category a {
   color: #7E7E7E;
 }
-.product-info .author a:hover {
+.product-info .author a:hover, .product-summery .author:hover, .product-summery .category a {
   color: #333333;
 }
 /*CEIT END*/
@@ -10548,6 +10549,16 @@ body.offcanvas-open .sticky-header {
   margin-left: 10px;
   color: #F8796C;
 }
+/*CEIT*/
+.product-price span.old {
+  text-decoration: line-through;
+  color: #AAAAAA;
+}
+.product-price span.new {
+  margin-left: 10px;
+  color: #F8796C;
+}
+/*CEIT*/
 .product-info .product-buttons {
   position: absolute;
   z-index: 5;
@@ -11433,7 +11444,8 @@ body.offcanvas-open .sticky-header {
   font-size: 48px;
   font-weight: 400;
   line-height: 1.1675;
-  margin-bottom: 25px;
+  /*margin-bottom: 25px;CEIT*/
+  margin-bottom: 0px;
 }
 @media only screen and (max-width: 575px) {
   .product-title {
@@ -11557,7 +11569,7 @@ body.offcanvas-open .sticky-header {
   padding-bottom: 10px;
 }
 .product-variations table tbody tr td.label {
-  width: 160px;
+  width: 180px;
   padding-right: 40px;
 }
 @media only screen and (max-width: 575px) {
@@ -11733,7 +11745,7 @@ body.offcanvas-open .sticky-header {
   padding-bottom: 3px;
 }
 .product-meta table tbody tr td.label {
-  width: 160px;
+  width: 180px;
   padding-right: 40px;
 }
 @media only screen and (max-width: 575px) {
@@ -15175,11 +15187,24 @@ a.l-more{
 a.l-more:hover{
   color: #F8796C;
 }
+a.dgreen{
+  color: #82a142!important;
+  text-shadow: 0.02rem 0.02rem #6f7365;
+}
+a.dgreen:hover{
+  color: #F8796C!important;
+}
 .font-xs{
   font-size: 60%;
 }
 .font-s{
   font-size: 80%;
+}
+.font-l{
+  font-size: 110%;
+}
+.font-xl{
+  font-size: 120%;
 }
 .l-more::before {
   content: '';

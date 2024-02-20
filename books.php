@@ -36,6 +36,10 @@ $vBookResult = $booksModelObj->getBooks("WHERE b.id = ?", array(&$vBookId), $vOr
 
 foreach ($vBookResult AS $book) {
     $vBookImages = $booksModelObj->getBookImages("WHERE book_id = ?", array($book['id']), $vOrder = '', $vLimit = 'LIMIT 4');
+    $vBookFormatJson = (!empty($book['format']) ? $commonModelObj->getLookupValue('lk_text', 'en', 'id = ?', $book['format']) : '');
+    $vBookDiscount = $booksModelObj->getBookDiscount($book);
+    $vBookDiscountPrice = $booksModelObj->getBookPrice($book);
+    $vLanguageJson = ($book['format'] == 'en' ? 'English' : 'Afrikaans');
 	$vString = "
    <!-- Single Products Section Start -->
     <div class='section section-padding border-bottom'>
@@ -59,7 +63,11 @@ foreach ($vBookResult AS $book) {
                                 $vBookImages[] = $newElement;
 							}
                             else {
-                                $vBookImages = array($book['blob_path']);
+                                $newElement = array(
+                                    'blob_path' => $book['blob_path']
+                                );
+                                $vBookImages = array($newElement);
+//                                $vBookImages = array($book['blob_path']);
                             }
                             $vBookImages = array_reverse($vBookImages);
                         }
@@ -83,35 +91,27 @@ foreach ($vBookResult AS $book) {
                 <!-- Product Summery Start -->
                 <div class='col-lg-8 col-12 learts-mb-40'>
                     <div class='product-summery'>
-                        <h3 class='product-title'>Cleaning Dustpan & Brush</h3>
-                        <div class='product-price'>£38.00 – £50.00</div>
+                        <h3 class='product-title'>".$book['title']."</h3>
+                        <div class='author'><a class='dgreen font-xl' href='ghgh'>".$book['author']."</a></div><!-- TODO - Add links -->
+                        <div class='category text-dgreen font-s'><a class='dgreen font-xl' href='ghgh'>".$book['category_string']." - ".$book['sub_category_string']."<a></div><!-- TODO - Add links -->
+                        <div class='product-price'>";
+                            if($book['price'] > $vBookDiscountPrice) {
+                                $vString .= "<span class='old'>R ".$book['price']."</span>";
+                            }
+                            $vString .= "<span class='new'>R ".$vBookDiscountPrice."</span>";
+                        $vString .= "</div>
                         <div class='product-description'>
-                            <p>Easy clip-on handle – Hold the brush and dustpan together for storage; the dustpan edge is serrated to allow easy scraping off the hair without entanglement. High-quality bristles – no burr damage, no scratches, thick and durable, comfortable to remove dust and smaller particles.</p>
+                            <p>".$book['summary']."</p>
                         </div>
                         <div class='product-variations'>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td class='label'><span>Size</span></td>
-                                        <td class='value'>
-                                            <div class='product-sizes'>
-                                                <a href='#'>Large</a>
-                                                <a href='#'>Medium</a>
-                                                <a href='#'>Small</a>
-                                            </div>
-                                        </td>
+                                        <td class='label'><span>".$commonModelObj->getText(25, $_SESSION['graf_client']['language'])/*Publikasiedatum*/."</span></td>
+                                        <td class='value'>".$book['date_publish']."</td>
                                     </tr>
                                     <tr>
-                                        <td class='label'><span>Color</span></td>
-                                        <td class='value'>
-                                            <div class='product-colors'>
-                                                <a href='#' data-bg-color='#000000'></a>
-                                                <a href='#' data-bg-color='#ffffff'></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class='label'><span>Quantity</span></td>
+                                        <td class='label'><span>".$commonModelObj->getText(140, $_SESSION['graf_client']['language'])/*Aantal*/."</span></td>
                                         <td class='value'>
                                             <div class='product-quantity'>
                                                 <span class='qty-btn minus'><i class='ti-minus'></i></span>
@@ -124,57 +124,31 @@ foreach ($vBookResult AS $book) {
                             </table>
                         </div>
                         <div class='product-buttons'>
-                            <a href='#' class='btn btn-icon btn-outline-body btn-hover-dark hintT-top' data-hint='Add to Wishlist'><i class='far fa-heart'></i></a>
-                            <a href='#' class='btn btn-dark btn-outline-hover-dark'><i class='fas fa-shopping-cart'></i> Add to Cart</a>
-                            <a href='#' class='btn btn-icon btn-outline-body btn-hover-dark hintT-top' data-hint='Compare'><i class='fas fa-random'></i></a>
-                        </div>
-                        <div class='product-brands'>
-                            <span class='title'>Brands</span>
-                            <div class='brands'>
-                                <a href='#'><img src='assets/images/brands/brand-3.webp' alt=''></a>
-                                <a href='#'><img src='assets/images/brands/brand-8.webp' alt=''></a>
-                            </div>
+                            <a href='#' class='btn btn-icon btn-outline-body btn-hover-dark hintT-top' data-hint='".$commonModelObj->getText(312, $_SESSION['graf_client']['language'])/*Laai in Wenslys*/."'><i class='far fa-heart'></i></a>
+                            <a href='#' class='btn btn-dark btn-outline-hover-dark'><i class='fas fa-shopping-cart' ></i> ".$commonModelObj->getText(24, $_SESSION['graf_client']['language'])/*Laai in mandjie*/."</a>
                         </div>
                         <div class='product-meta'>
                             <table>
-                                <tbody>
-                                    <tr>
-                                        <td class='label'><span>SKU</span></td>
-                                        <td class='value'>0404019</td>
-                                    </tr>
-                                    <tr>
-                                        <td class='label'><span>Category</span></td>
-                                        <td class='value'>
-                                            <ul class='product-category'>
-                                                <li><a href='#'>Kitchen</a></li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class='label'><span>Tags</span></td>
-                                        <td class='value'>
-                                            <ul class='product-tags'>
-                                                <li><a href='#'>handmade</a></li>
-                                                <li><a href='#'>learts</a></li>
-                                                <li><a href='#'>mug</a></li>
-                                                <li><a href='#'>product</a></li>
-                                                <li><a href='#'>learts</a></li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class='label'><span>Share on</span></td>
-                                        <td class='va'>
-                                            <div class='product-share'>
-                                                <a href='#'><i class='fab fa-facebook-f'></i></a>
-                                                <a href='#'><i class='fab fa-twitter'></i></a>
-                                                <a href='#'><i class='fab fa-google-plus-g'></i></a>
-                                                <a href='#'><i class='fab fa-pinterest'></i></a>
-                                                <a href='#'><i class='far fa-envelope'></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <tbody>";
+                                    if(!empty($book['dimensions'])) {
+                                        $vString .= "<tr>
+                                            <td class='label'><span>".$commonModelObj->getText(377, $_SESSION['graf_client']['language'])/*Dimensies*/."</span></td>
+                                            <td class='value'>".$book['dimensions']."</td>
+                                        </tr>";
+                                    }
+                                    if(!empty($book['format'])) {
+                                        $vString .= "<tr>
+                                            <td class='label'><span>".$commonModelObj->getText(381, $_SESSION['graf_client']['language'])/*Formaat*/."</span></td>
+                                            <td class='value'>".$book['format_string']."</td>
+                                        </tr>";
+                                    }
+                                    if(!empty($book['pages']) && ($book['pages'] > 0)) {
+                                        $vString .= "<tr>
+                                            <td class='label'><span>".$commonModelObj->getText(380, $_SESSION['graf_client']['language'])/*Aantal bladsye*/."</span></td>
+                                            <td class='value'>".$book['pages']."</td>
+                                        </tr>";
+                                    }
+                                $vString .= "</tbody>
                             </table>
                         </div>
                     </div>
@@ -186,6 +160,32 @@ foreach ($vBookResult AS $book) {
 
     </div>
     <!-- Single Products Section End -->";
+
+    $vString .= "<script type='application/ld+json'>
+    {
+        \"@context\": \"https://schema.org\",
+        \"@type\": \"WebPage\",
+        \"breadcrumb\": \"Books > Literature & Fiction > Classics\",
+        \"mainEntity\":{
+            \"@type\": \"Book\",
+            \"author\": \"".$book['author']."\",
+            \"bookFormat\": \"".$vBookFormatJson."\",
+            \"datePublished\": \"".$book['date_publish']."\",
+            \"image\": \"".$vBlobPath."/".$book['blob_path']."\",
+            \"inLanguage\": \"".$vLanguageJson."\",
+            \"isbn\": \"".$book['isbn']."\",
+            \"name\": \"".htmlspecialchars($book['title'])."\",
+            \"description\": \"".htmlspecialchars($book['summary'])."\",
+            \"numberOfPages\": \"".$book['pages']."\",
+            \"offers\": {
+                \"@type\": \"Offer\",
+                \"availability\": \"https://schema.org/InStock\",
+                \"price\": \"".$vBookDiscountPrice."\",
+                \"priceCurrency\": \"ZAR\"
+            }
+        }
+    }
+    </script>";
 }
 echo $vString;
 

@@ -19,7 +19,7 @@ class booksModel
 		//Ln 22 to 26 - Leonie request 26-04-2022 - Sort on special price if special price smaller than price
         $vSQL = "SELECT b.id, b.isbn, b.category, b.sub_category, b.title, b.summary, b.blob_path, b.special_price, b.price, b.cost_price, b.date_publish, b.date_loaded, b.new, b.special, b.top_seller, b.top_seller_rank, b.out_of_print, b.in_stock, 
 			b.publisher, b.language, c.category AS category_string, sc.sub_category_".$_SESSION['graf_client']['language']." AS sub_category_string, b.author, b.illustrator, b.translator, b.edit_by, b.default_discount, b.dimensions, b.weight, 
-			b.format, b.pages, b.new_rank, b.soon_discount, b.soon_rank, b.soon, b.special_rank as special_rank, b.section,
+			b.format, b.pages, b.new_rank, b.soon_discount, b.soon_rank, b.soon, b.special_rank as special_rank, b.section, bf.".$_SESSION['graf_client']['language']." AS format_string, 
 		    CASE
                 WHEN (b.special_price < b.price AND b.special_price > 0) THEN b.special_price
                 WHEN (b.special_price >= b.price OR b.special_price = 0) THEN b.price
@@ -27,7 +27,9 @@ class booksModel
             END AS SortPrice 
 		FROM books b 
 		INNER JOIN categories AS c ON c.id = b.category 
-		INNER JOIN sub_categories AS sc ON sc.id = b.sub_category ".$vCondition." ".$vOrder." ".$vLimit;
+		INNER JOIN sub_categories AS sc ON sc.id = b.sub_category 
+		INNER JOIN lk_text bf ON bf.id = b.format
+		".$vCondition." ".$vOrder." ".$vLimit;
 
         $vResult = $this->dbModelObj->query($vSQL, $vParams)->fetchAll();
 
